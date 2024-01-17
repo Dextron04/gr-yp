@@ -7,7 +7,7 @@ export default async function handler(req, res) {
         console.log('I"m here');
         const { username, password } = req.body;
 
-        const client = new MongoClient(`mongodb+srv://dex_auth_1:vishu@dexweb.a1xucp0.mongodb.net/?retryWrites=true&w=majority`);
+        const client = new MongoClient(process.env.MONGODB_URI);
 
         try {
             await client.connect();

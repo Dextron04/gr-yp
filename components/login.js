@@ -36,12 +36,12 @@ const Login = () => {
         event.preventDefault();
 
         if (!username || !password || !email) {
-            alert("Please fill in all the details");
+            toast("Please fill in all the details");
             return;
         }
 
         if (username.length < 8 || password.length < 8) {
-            alert("Username and Password should have at least 8 characters");
+            toast("Username and Password should have at least 8 characters");
             return;
         }
 
@@ -57,7 +57,7 @@ const Login = () => {
                 setEmail('');
                 setPassword('');
                 setUsername('');
-                alert("Sign Up was successful!");
+                toast("Sign Up was successful!");
             } else {
                 console.log('Something went wrong');
             }
@@ -82,13 +82,13 @@ const Login = () => {
                 setIsLoggedIn(true)
                 toast("Sign In was successful!");
 
-                // setTimeout(() => {
-                //     router.push('/home');
-                // }, 5000)
+                setTimeout(() => {
+                    router.push('/home');
+                }, 3000)
 
-                router.push('/home');
+                // router.push('/home');
             } else if (response.status === 401) {
-                alert("Invalid credentials!");
+                toast("Invalid credentials!");
             } else {
                 toast("Login was not successful");
                 console.log("Something went wrong");

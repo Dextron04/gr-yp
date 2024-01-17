@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     if (req.method === 'POST') {
         const { username, email, password } = req.body; // Extract username from the request body
 
-        const client = new MongoClient(`mongodb+srv://dex_auth_1:vishu@dexweb.a1xucp0.mongodb.net/?retryWrites=true&w=majority`);
+        const client = new MongoClient(process.env.MONGODB_URI);
 
         try {
             // Connecting to the database
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
 }
 
 async function isValid(username, email) {
-    const client = new MongoClient(`mongodb+srv://dex_auth_1:vishu@dexweb.a1xucp0.mongodb.net/?retryWrites=true&w=majority`);
+    const client = new MongoClient(process.env.MONGODB_URI);
 
     try {
         await client.connect()

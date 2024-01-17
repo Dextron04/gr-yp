@@ -4,6 +4,7 @@ import '../styles/global.css'
 import Footer from '../components/footer';
 import { ToastContainer } from 'react-toastify';
 import { Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Gryp({ Component, pageProps }) {
     // Add any custom logic or components here
