@@ -117,7 +117,9 @@ const Login = () => {
                             <br />
                             <br />
                         </div>
-                        <button onClick={handleLogin} className={styles["sign"]}>Sign in</button>
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <button onClick={handleLogin} className={styles["sign"]}>Sign in</button>
+                        </div>
                     </form>
                     <div className={styles["social-message"]}>
                         <div className={styles["line"]}></div>
@@ -149,7 +151,9 @@ const Login = () => {
                             <input required type="text" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </div>
                         <br />
-                        <button onClick={handleSignUp} className={styles["sign"]}>Sign Up</button>
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <button onClick={handleSignUp} className={styles["sign"]}>Sign Up</button>
+                        </div>
                     </form>
                     <div className={styles["social-message"]}>
                         <div className={styles["line"]}></div>
