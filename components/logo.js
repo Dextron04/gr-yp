@@ -4,7 +4,7 @@ import styles from '../styles/logo.module.css'
 const Logo = () => {
     return (
         <div className={styles.logo}>
-            <svg viewBox="0 0 100 40" width="1000" height="800" >
+            <svg viewBox="0 0 100 40" width="800" height="800">
                 <defs>
                     <linearGradient id="gradient">
                         <stop color="#000" />
