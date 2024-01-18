@@ -18,8 +18,11 @@
 }
 
 .form {
+    display: flex;
     margin: 1.5rem;
     margin-left: 0em;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .input-group {
@@ -142,11 +145,16 @@
         color: rgba(243, 244, 246, 1);
     }
 
+    .sign-container {
+        display: flex;
+        justify-content: center;
+    }
+
     .sign {
-        display: block;
-        width: 19em;
+        width: 115%;
+        /* margin: auto; */
         background-color: rgba(167, 139, 250, 1);
-        padding: 0.75rem;
+        padding: 0.75rem 1rem;
         text-align: center;
         color: rgba(17, 24, 39, 1);
         border: none;
