@@ -2,11 +2,11 @@ import React from 'react';
 import App from 'next/app';
 import '../styles/global.css'
 import Footer from '../components/footer';
-import { ToastContainer } from 'react-toastify';
-import { Bounce } from 'react-toastify';
+import { ToastContainer, Bounce } from 'react-toastify';
+import { SessionProvider, useSession } from "next-auth/react";
 import 'react-toastify/dist/ReactToastify.css';
 
-function Gryp({ Component, pageProps }) {
+function Gryp({ Component, pageProps: { session, ...pageProps } }) {
     // Add any custom logic or components here
 
     return (
@@ -24,7 +24,9 @@ function Gryp({ Component, pageProps }) {
                 theme="dark"
                 transition={Bounce}
             />
-            <Component {...pageProps} />
+            <SessionProvider session={session}>
+                <Component {...pageProps} />
+            </SessionProvider>
             <Footer />
         </>
     );
