@@ -9,8 +9,8 @@ import bcrypt from 'bcrypt';
 export default NextAuth({
     providers: [
         Google({
-            clientId: process.env.NEXTAUTH_GOOGLE_CLIENT_ID,
-            clientSecret: process.env.NEXTAUTH_GOOGLE_CLIENT_SECRET,
+            clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
         }),
         CredentialsProvider({
             name: 'Credentials',
@@ -46,16 +46,16 @@ export default NextAuth({
             }
         }),
         Twitter({
-            clientId: process.env.NEXTAUTH_TWITTER_CLIENT_ID,
-            clientSecret: process.env.NEXTAUTH_TWITTER_CLIENT_SECRET,
+            clientId: process.env.NEXT_PUBLIC_TWITTER_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_TWITTER_CLIENT_SECRET,
             // callbackUrl: process.env.TWITTER_CALLBACK_URL,
         }),
         GitHub({
             // clientId: process.env.GITHUB_CLIENT_ID_TEST,
             // clientSecret: process.env.GITHUB_CLIENT_SECRET_TEST,
 
-            clientId: process.env.NEXTAUTH_GITHUB_CLIENT_ID,
-            clientSecret: process.env.NEXTAUTH_GITHUB_CLIENT_SECRET,
+            clientId: process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID,
+            clientSecret: process.env.NEXT_PUBLIC_GITHUB_CLIENT_SECRET,
         })
         // Other providers here
     ],
