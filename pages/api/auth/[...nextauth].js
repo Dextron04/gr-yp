@@ -79,13 +79,19 @@ export default NextAuth({
                     throw new Error("Invalid Provider");
                 }
 
-                const newUser = {
-                    user: user.user,
-                    account: user.account,
-                    profile: user.profile,
-                }
+                const existingUser = await collection.findOne({ user: user.user });
 
-                await collection.insertOne(newUser);
+                if (existingUser) {
+                    console.log("User Already Exists")
+                } else {
+                    const newUser = {
+                        user: user.user,
+                        account: user.account,
+                        profile: user.profile,
+                    }
+
+                    await collection.insertOne(newUser);
+                }
             } catch (e) {
                 error(e);
             } finally {
