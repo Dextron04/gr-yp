@@ -5,7 +5,6 @@ import Twitter from 'next-auth/providers/twitter';
 import GitHub from 'next-auth/providers/github';
 import { MongoClient } from 'mongodb';
 import bcrypt from 'bcrypt';
-import { toast } from 'react-toastify';
 import { error } from 'console';
 
 export default NextAuth({
