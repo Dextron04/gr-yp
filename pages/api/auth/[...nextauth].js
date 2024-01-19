@@ -5,6 +5,8 @@ import Twitter from 'next-auth/providers/twitter';
 import GitHub from 'next-auth/providers/github';
 import { MongoClient } from 'mongodb';
 import bcrypt from 'bcrypt';
+import { toast } from 'react-toastify';
+import { error } from 'console';
 
 export default NextAuth({
     providers: [
@@ -60,5 +62,38 @@ export default NextAuth({
         // Other providers here
     ],
     secret: process.env.NEXTAUTH_SECRET,
+    callbacks: {
+        // Storing the userinfo in the database
+        async signIn(user, account, profile) {
+            const client = new MongoClient(process.env.MONGODB_URI);
+            try {
+                await client.connect();
+                let collection;
+                const db = client.db('dexweb');
+                if (user.account.provider === 'google') {
+                    collection = db.collection("google");
+                } else if (user.account.provider === 'twitter') {
+                    collection = db.collection("twitter");
+                } else if (user.account.provider === 'github') {
+                    collection = db.collection("github");
+                } else {
+                    throw new Error("Invalid Provider");
+                }
+
+                const newUser = {
+                    user: user.user,
+                    account: user.account,
+                    profile: user.profile,
+                }
+
+                await collection.insertOne(newUser);
+            } catch (e) {
+                error(e);
+            } finally {
+                await client.close();
+            }
+            return true;
+        }
+    }
     // Other NextAuth configuration here
 })

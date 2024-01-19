@@ -21,8 +21,6 @@ export default async function handler(req, res) {
 
             const isAvailable = await isValid(username, email);
 
-            console.log(isAvailable);
-
             // Insert the username into the collection
             if (isAvailable) {
                 await collection.insertOne({ username, email, hashedPassword });
