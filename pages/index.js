@@ -21,7 +21,6 @@ export default function Index() {
         return (
             <div>
                 <div className={styles.head}>
-                    <div>Not signed in</div>
                     <Logo />
                 </div>
                 <div className={styles.login}>
