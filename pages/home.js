@@ -4,10 +4,11 @@ import { useSession } from 'next-auth/react';
 import NavBar from '../components/NavBar.js';
 import AddPost from '../components/AddPost.js';
 import Post from '../components/Post.js';
+import AtomicSpinner from 'atomic-spinner'
 
 
 const Home = () => {
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
     const router = new useRouter();
     const [post, setPost] = useState({ title: '', content: '', postAuthor: '' });
     const [postsArray, setPostsArray] = useState([]);
@@ -30,6 +31,12 @@ const Home = () => {
 
         return () => clearInterval(intervalId);
     }, []);
+
+    if (status === "loading") return (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <div><AtomicSpinner atomSize={300} electronSize={2.5} /></div>
+        </div>
+    );
 
     if (session) {
         return (
