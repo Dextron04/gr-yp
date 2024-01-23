@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import { firebase, database } from '../firebase/firebaseConfig';
-import { collection, addDoc } from 'firebase/firestore';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
+
 
 
 const AddPost = () => {
@@ -9,32 +11,34 @@ const AddPost = () => {
     const [postTitle, setPostTitle] = useState('');
     const { data: session } = useSession();
 
-    const handlePost = () => {
-        // Handle the post logic here, e.g. send the post content to a server
-        const db = collection(database, 'posts');
 
-
-        // Sumi proof code {LOL}
-        if (session.user.name === 'john') {
-            addDoc(db, {
-                post_title: postTitle,
-                post_content: postContent,
-                postAuthor: 'sumi',
-            }).then(() => {
-                setPostContent('');
-                setPostTitle('');
-            })
-        } else {
-            addDoc(db, {
-                post_title: postTitle,
-                post_content: postContent,
-                postAuthor: session.user.name,
-            }).then(() => {
-                setPostContent('');
-                setPostTitle('');
-            })
+    // Posting to the database.
+    const handlePost = async () => {
+        if (!postTitle || !postContent) {
+            toast("Please fill in all the details");
+            return;
         }
-        // Reset the post content after posting
+
+        try {
+            // Sumi proof
+            const response = await axios.post('/api/savePost', {
+                postTitle,
+                postContent,
+                postAuthor: session.user.name === 'john' ? 'sumi' : session.user.name,
+            });
+
+            if (response.status === 201) {
+                console.log('Data Saved successfully');
+                toast.success("Post was successful!");
+                setPostContent('');
+                setPostTitle('');
+                window.location.reload();
+            } else {
+                console.log('Something went wrong');
+            }
+        } catch (e) {
+            console.error(`Error! ${e}`);
+        }
     };
 
     return (
