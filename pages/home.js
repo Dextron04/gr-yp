@@ -1,23 +1,56 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import NavBar from '../components/NavBar';
+import AddPost from '../components/AddPost';
+import Post from '../components/post';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { database } from '../firebase/firebaseConfig';
 
 const Home = () => {
     const { data: session } = useSession();
     const router = new useRouter();
+    const [post, setPost] = useState({ title: '', content: '', postAuthor: '' });
+    const [postsArray, setPostsArray] = useState([]);
+
 
     const handleLoginClick = () => {
         router.push('/');
     }
+
+    const handlePost = (title, content, author) => {
+        // console.log(author);
+        setPost({ title, content, author });
+    };
+
+    const getPosts = () => {
+        const db = collection(database, 'posts');
+
+        getDocs(db)
+            .then((data) => {
+                setPostsArray(data.docs.map((item) => {
+                    return ({ ...item.data(), id: item.id })
+                }));
+            })
+    }
+
+    useEffect(() => {
+        getPosts();
+    })
+
     if (session) {
         return (
             <div className='pt-16'>
                 <NavBar />
-                <h1>Welcome to the Home Page</h1>
-                <p>You are signed in as {session.user.name}</p>
-                {/* <button onClick={() => signOut()}>Sign Out</button> */}
-                {/* Add your content here */}
+                {/* <p>You are signed in as {session.user.name}</p> */}
+                <AddPost onPost={handlePost} />
+                {postsArray.map((post) => {
+                    return (
+                        <div key={post.id}>
+                            <Post title={post.post_title} description={post.post_content} postAuthor={post.postAuthor} />
+                        </div>
+                    )
+                })}
             </div>
         );
     } else {
