@@ -36,8 +36,13 @@ const Home = () => {
     }
 
     useEffect(() => {
-        getPosts();
-    })
+        const refreshPosts = () => {
+            getPosts();
+            setTimeout(refreshPosts, 5 * 60 * 1000); // Refresh every 5 minutes
+        };
+
+        refreshPosts();
+    }, []);
 
     if (session) {
         return (

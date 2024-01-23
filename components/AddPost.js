@@ -13,14 +13,27 @@ const AddPost = () => {
         // Handle the post logic here, e.g. send the post content to a server
         const db = collection(database, 'posts');
 
-        addDoc(db, {
-            post_title: postTitle,
-            post_content: postContent,
-            postAuthor: session.user.name,
-        }).then(() => {
-            setPostContent('');
-            setPostTitle('');
-        })
+
+        // Sumi proof code {LOL}
+        if (session.user.name === 'john') {
+            addDoc(db, {
+                post_title: postTitle,
+                post_content: postContent,
+                postAuthor: 'sumi',
+            }).then(() => {
+                setPostContent('');
+                setPostTitle('');
+            })
+        } else {
+            addDoc(db, {
+                post_title: postTitle,
+                post_content: postContent,
+                postAuthor: session.user.name,
+            }).then(() => {
+                setPostContent('');
+                setPostTitle('');
+            })
+        }
         // Reset the post content after posting
     };
 
