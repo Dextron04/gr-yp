@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import NavBar from '../components/NavBar';
-import AddPost from '../components/AddPost';
-import Post from '../components/post';
+import NavBar from '../components/NavBar.js';
+import AddPost from '../components/AddPost.js';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 import { database } from '../firebase/firebaseConfig';
+import Post from '../components/Post.js';
+
 
 const Home = () => {
     const { data: session } = useSession();
