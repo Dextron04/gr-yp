@@ -62,6 +62,12 @@ const Home = () => {
     } else {
         return (
             <div className="flex flex-col items-center justify-center h-screen">
+                <Head>
+                    <title>
+                        GR-YP | Home
+                    </title>
+                    <link rel='icon' href='/favicon.ico' />
+                </Head>
                 <div className='flex justify-normal flex-col fixed'>
                     <div className="text-xl font-bold mb-4">You are not logged in.</div>
                     <button

@@ -11,6 +11,7 @@ function Gryp({ Component, pageProps: { session, ...pageProps } }) {
 
     return (
         <>
+            <link rel="icon" href="/favicon.ico" sizes="any" />
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
