@@ -5,6 +5,7 @@ import NavBar from '../components/NavBar.js';
 import AddPost from '../components/AddPost.js';
 import Post from '../components/Post.js';
 import AtomicSpinner from 'atomic-spinner'
+import Head from 'next/head.js';
 
 
 const Home = () => {
@@ -41,6 +42,12 @@ const Home = () => {
     if (session) {
         return (
             <div className='pt-16'>
+                <Head>
+                    <title>
+                        GR-YP | Home
+                    </title>
+                    <link rel='icon' href='/favicon.ico' />
+                </Head>
                 <NavBar />
                 <AddPost />
                 {postsArray.map((post) => {

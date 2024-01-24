@@ -5,6 +5,7 @@ import Logo from "../components/logo";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import Head from "next/head";
 
 export default function Index() {
     const { data: session } = useSession()
@@ -20,6 +21,12 @@ export default function Index() {
     } else {
         return (
             <div>
+                <Head>
+                    <title>
+                        GR-YP | Login
+                    </title>
+                    <link rel='icon' href='/favicon.ico' />
+                </Head>
                 <div className={styles.head}>
                     <Logo />
                 </div>
