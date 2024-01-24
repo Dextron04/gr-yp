@@ -46,7 +46,7 @@ const Home = () => {
                 {postsArray.map((post) => {
                     return (
                         <div key={post.id}>
-                            <Post title={post.postTitle} description={post.postContent} postAuthor={post.postAuthor} />
+                            <Post key={post.postTitle} title={post.postTitle} description={post.postContent} postAuthor={post.postAuthor} postImage={post.postImage} />
                         </div>
                     )
                 })}
@@ -64,7 +64,7 @@ const Home = () => {
                 </button>
                 <div style={{ position: 'fixed', zIndex: '-1' }}>
                     <AtomicSpinner
-                        atomSize={window.innerWidth <= 768 ? 600 : 800}
+                        atomSize={window.innerWidth <= 768 ? 620 : 800}
                         displayNucleus={false}
                     />
                 </div>

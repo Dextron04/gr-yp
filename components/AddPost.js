@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Image from 'next/image';
 
 
 
@@ -9,6 +10,8 @@ import { toast } from 'react-toastify';
 const AddPost = () => {
     const [postContent, setPostContent] = useState('');
     const [postTitle, setPostTitle] = useState('');
+    const [postImage, setPostImage] = useState('');
+    const [imagePreview, setImagePreview] = useState(null);
     const { data: session } = useSession();
 
 
@@ -25,6 +28,7 @@ const AddPost = () => {
                 postTitle,
                 postContent,
                 postAuthor: session.user.name === 'john' ? 'sumi' : session.user.name,
+                postImage,
             });
 
             if (response.status === 201) {
@@ -40,6 +44,30 @@ const AddPost = () => {
             console.error(`Error! ${e}`);
         }
     };
+
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = () => {
+                resolve(fileReader.result)
+                setImagePreview(fileReader.result);
+            };
+            fileReader.onerror = (error) => {
+                reject(error)
+            }
+        })
+    };
+
+    const handleFileUpload = async (e) => {
+        const file = e.target.files[0];
+
+        if (file) {
+            const base64 = await convertToBase64(file);
+            setPostImage(base64);
+        }
+    }
 
     return (
         <div className='flex justify-center w-full mt-6 px-4 sm:px-0'>
@@ -60,12 +88,31 @@ const AddPost = () => {
                     onChange={(e) => setPostContent(e.target.value)}
                     style={{ minHeight: '20px', maxHeight: '100%' }}
                 ></textarea>
-                <button
-                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4 sm:w-auto"
-                    onClick={handlePost}
-                >
-                    Post
-                </button>
+                {imagePreview && <Image style={{ borderRadius: '10px', marginBottom: '15px' }} src={imagePreview} alt="preview" width={600} height={600} />}
+                <div className="flex justify-between"> {/* Modify the className to "flex justify-between" */}
+                    <button
+                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4 sm:w-auto"
+                        onClick={handlePost}
+                    >
+                        Post
+                    </button>
+                    <div className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded mt-4 sm:w-auto"
+                        style={{ position: 'relative', display: 'inline-block' }}>
+                        <input
+                            id='fileInput'
+                            style={{ display: 'none' }}  // Make room for the icon
+                            type='file'
+                            accept='image/*'
+                            onChange={(e) => handleFileUpload(e)}
+                        />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"
+                            style={{ position: 'absolute', right: '11px', top: '50%', transform: 'translateY(-50%)' }} // Position the icon
+                            onClick={() => document.getElementById('fileInput').click()}
+                        >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                        </svg>
+                    </div>
+                </div>
             </div>
         </div>
     );
