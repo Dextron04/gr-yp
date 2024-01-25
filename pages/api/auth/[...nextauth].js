@@ -67,17 +67,24 @@ export default NextAuth({
             const client = new MongoClient(process.env.MONGODB_URI);
             try {
                 await client.connect();
-                let collection;
+                // let collection;
                 const db = client.db('dexweb');
-                if (user.account.provider === 'google') {
-                    collection = db.collection("google");
-                } else if (user.account.provider === 'twitter') {
-                    collection = db.collection("twitter");
-                } else if (user.account.provider === 'github') {
-                    collection = db.collection("github");
-                } else {
-                    throw new Error("Invalid Provider");
-                }
+
+                // console.log(user.user._id.toString());
+
+                // <----- Users being stored in separate collection ----->
+                // if (user.account.provider === 'google') {
+                //     collection = db.collection("google");
+                // } else if (user.account.provider === 'twitter') {
+                //     collection = db.collection("twitter");
+                // } else if (user.account.provider === 'github') {
+                //     collection = db.collection("github");
+                // } else {
+                //     throw new Error("Invalid Provider");
+                // }
+                //  <----- Users being stored in separate collection ----->
+
+                const collection = db.collection('users');
 
                 const existingUser = await collection.findOne({ user: user.user });
 

@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Image from 'next/image';
+import { v4 as uuidv4 } from 'uuid';
 
 
 
@@ -17,6 +18,9 @@ const AddPost = () => {
 
     // Posting to the database.
     const handlePost = async () => {
+
+        const postId = uuidv4();
+
         if (!postTitle || !postContent) {
             toast("Please fill in all the details");
             return;
@@ -29,6 +33,9 @@ const AddPost = () => {
                 postContent,
                 postAuthor: session.user.name === 'john' ? 'sumi' : session.user.name,
                 postImage,
+                authorEmail: session.user.email,
+                postId,
+                likes: [],
             });
 
             if (response.status === 201) {

@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-        const { postTitle, postContent, postAuthor, postImage } = req.body;
+        const { postTitle, postContent, postAuthor, postImage, authorEmail, postId, likes } = req.body;
 
         const client = new MongoClient(process.env.MONGODB_URI);
 
@@ -10,8 +10,18 @@ export default async function handler(req, res) {
             await client.connect();
             const database = client.db('dexweb');
             const collection = database.collection('posts');
+            const usersCollection = database.collection('users');
 
-            await collection.insertOne({ postTitle, postContent, postAuthor, postImage });
+            const user = await usersCollection.findOne({ email: authorEmail });
+
+            if (!user) {
+                res.status(404).json({ message: 'User not found' });
+                return;
+            }
+
+            const authorId = user._id.toString();
+
+            await collection.insertOne({ postTitle, postContent, postAuthor, postImage, authorId, postId, likes });
             res.status(201).json({ message: 'Post Saved to database' })
         } catch (e) {
             res.status(500).json({ error: e.toString() });

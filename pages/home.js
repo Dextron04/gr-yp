@@ -53,7 +53,7 @@ const Home = () => {
                 {postsArray.map((post) => {
                     return (
                         <div key={post.id}>
-                            <Post key={post.postTitle} title={post.postTitle} description={post.postContent} postAuthor={post.postAuthor} postImage={post.postImage} />
+                            <Post key={post.postTitle} title={post.postTitle} description={post.postContent} postAuthor={post.postAuthor} postImage={post.postImage} postId={post.postId} authorId={post.authorId} />
                         </div>
                     )
                 })}
