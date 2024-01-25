@@ -4,7 +4,7 @@ import { error, log } from 'console';
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-        const { username, email, password } = req.body; // Extract username from the request body
+        const { username, email, password, userId } = req.body; // Extract username from the request body
 
         const client = new MongoClient(process.env.MONGODB_URI);
 
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
 
             // Insert the username into the collection
             if (isAvailable) {
-                await collection.insertOne({ username, email, hashedPassword });
+                await collection.insertOne({ username, email, hashedPassword, userId });
                 res.status(201).json({ message: 'Data saved successfully!' });
             } else {
                 return res.status(400).json({ message: 'Username or email already exists!' });

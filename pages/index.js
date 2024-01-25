@@ -12,10 +12,7 @@ export default function Index() {
     const router = new useRouter()
 
     if (session) {
-        console.log(session.user.name);
-        // console.log(session.user.email);
-        console.log(session.user.image);
-        console.log(session.expires);
+        console.log(session.user.email);
         toast.success("Sign In Successful")
         router.push('/home')
     } else {

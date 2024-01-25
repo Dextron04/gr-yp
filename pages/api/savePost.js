@@ -14,7 +14,6 @@ export default async function handler(req, res) {
 
             const user = await usersCollection.findOne({ $or: [{ email: authorEmail }, { "user.email": authorEmail }] });
 
-            console.log(user.user.email);
 
             if (!user) {
                 res.status(404).json({ message: 'User not found' });

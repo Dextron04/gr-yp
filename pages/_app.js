@@ -3,7 +3,7 @@ import App from 'next/app';
 import '../styles/global.css'
 import Footer from '../components/footer';
 import { ToastContainer, Bounce } from 'react-toastify';
-import { SessionProvider, useSession } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import 'react-toastify/dist/ReactToastify.css';
 import Head from 'next/head';
 

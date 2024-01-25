@@ -6,6 +6,7 @@ import GitHub from 'next-auth/providers/github';
 import { MongoClient } from 'mongodb';
 import bcrypt from 'bcrypt';
 import { error } from 'console';
+import { v4 as uuidv4 } from 'uuid';
 
 export default NextAuth({
     providers: [
@@ -70,20 +71,6 @@ export default NextAuth({
                 // let collection;
                 const db = client.db('dexweb');
 
-                // console.log(user.user._id.toString());
-
-                // <----- Users being stored in separate collection ----->
-                // if (user.account.provider === 'google') {
-                //     collection = db.collection("google");
-                // } else if (user.account.provider === 'twitter') {
-                //     collection = db.collection("twitter");
-                // } else if (user.account.provider === 'github') {
-                //     collection = db.collection("github");
-                // } else {
-                //     throw new Error("Invalid Provider");
-                // }
-                //  <----- Users being stored in separate collection ----->
-
                 const collection = db.collection('users');
 
                 const existingUser = await collection.findOne({ user: user.user });
@@ -91,7 +78,9 @@ export default NextAuth({
                 if (existingUser) {
                     console.log("User Already Exists")
                 } else {
+                    const user_id = uuidv4();
                     const newUser = {
+                        userId: user_id,
                         user: user.user,
                         account: user.account,
                         profile: user.profile,
