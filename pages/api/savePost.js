@@ -12,7 +12,9 @@ export default async function handler(req, res) {
             const collection = database.collection('posts');
             const usersCollection = database.collection('users');
 
-            const user = await usersCollection.findOne({ email: authorEmail });
+            const user = await usersCollection.findOne({ $or: [{ email: authorEmail }, { "user.email": authorEmail }] });
+
+            console.log(user.user.email);
 
             if (!user) {
                 res.status(404).json({ message: 'User not found' });
