@@ -41,7 +41,7 @@ const AddPost = () => {
                     postImage,
                     authorEmail: session.user.email,
                     postId,
-                    likes,
+                    // likes,
                 }),
             });
 
