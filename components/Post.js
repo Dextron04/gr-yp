@@ -44,7 +44,6 @@ const Post = ({ title, description, postAuthor, postImage, postId, authorId }) =
     }, [session, postId]);
 
     useEffect(() => {
-        console.log(session.user);
         if (postImage) {
             setImagePreview(postImage);
         }
