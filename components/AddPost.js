@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -22,7 +22,7 @@ const AddPost = () => {
         const postId = uuidv4();
 
         if (!postTitle || !postContent) {
-            toast("Please fill in all the details");
+            // toast("Please fill in all the details");
             return;
         }
 
@@ -40,7 +40,7 @@ const AddPost = () => {
 
             if (response.status === 201) {
                 console.log('Data Saved successfully');
-                toast.success("Post was successful!");
+                // toast.success("Post was successful!");
                 setPostContent('');
                 setPostTitle('');
                 window.location.reload();

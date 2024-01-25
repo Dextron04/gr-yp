@@ -54,10 +54,6 @@ const Post = ({ title, description, postAuthor, postImage, postId, authorId }) =
             <div className="bg-gray-900 rounded-lg shadow-md p-4 max-w-xl w-full">
                 <p style={{ fontSize: '12px' }}>
                     @{postAuthor}
-                    <br />
-                    Post ID: {postId}
-                    <br />
-                    UserID: {authorId}
                 </p>
                 <h2 className="text-xl font-bold">
                     <textarea
