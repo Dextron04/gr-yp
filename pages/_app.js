@@ -5,13 +5,16 @@ import Footer from '../components/footer';
 import { ToastContainer, Bounce } from 'react-toastify';
 import { SessionProvider, useSession } from "next-auth/react";
 import 'react-toastify/dist/ReactToastify.css';
+import Head from 'next/head';
 
 function Gryp({ Component, pageProps: { session, ...pageProps } }) {
     // Add any custom logic or components here
 
     return (
         <>
-            <link rel="icon" href="/favicon.ico" sizes="any" />
+            <Head>
+                <link rel="icon" href="/favicon.ico" sizes="any" />
+            </Head>
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
