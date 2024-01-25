@@ -13,6 +13,7 @@ const AddPost = () => {
     const [postTitle, setPostTitle] = useState('');
     const [postImage, setPostImage] = useState('');
     const [imagePreview, setImagePreview] = useState(null);
+    const likes = [];
     const { data: session } = useSession();
 
 
@@ -35,7 +36,7 @@ const AddPost = () => {
                 postImage,
                 authorEmail: session.user.email,
                 postId,
-                likes: [],
+                likes,
             });
 
             if (response.status === 201) {
