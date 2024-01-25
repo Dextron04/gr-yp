@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import axios from 'axios';
 
 const Post = ({ title, description, postAuthor, postImage, postId, authorId }) => {
     const [imagePreview, setImagePreview] = useState(null);
@@ -12,7 +11,14 @@ const Post = ({ title, description, postAuthor, postImage, postId, authorId }) =
     const handleLikeClick = async () => {
         const userId = session.user.email;
         try {
-            isLiked ? setIsLiked(false) : await axios.post('/api/handleLike', { postId, userId }); setIsLiked(true);
+            isLiked ? setIsLiked(false) : await fetch('/api/handleLike', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ postId, userId })
+            });
+            setIsLiked(true);
             checkLikeStatus();
         } catch (error) {
             console.error('Error making request:', error);
@@ -21,9 +27,16 @@ const Post = ({ title, description, postAuthor, postImage, postId, authorId }) =
 
     const checkLikeStatus = async () => {
         try {
-            const response = await axios.post('/api/handleLike', { postId, userId: session.user.email });
-            setIsLiked(response.data.isLiked);
-            setLikesCount(response.data.likesCount);
+            const response = await fetch('/api/handleLike', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ postId, userId: session.user.email })
+            });
+            const data = await response.json();
+            setIsLiked(data.isLiked);
+            setLikesCount(data.likesCount);
         } catch (error) {
             console.error('Error making request:', error);
         }
@@ -32,9 +45,16 @@ const Post = ({ title, description, postAuthor, postImage, postId, authorId }) =
     useEffect(() => {
         const checkLikeStatus = async () => {
             try {
-                const response = await axios.post('/api/handleLike', { postId, userId: session.user.email });
-                setIsLiked(response.data.isLiked);
-                setLikesCount(response.data.likesCount);
+                const response = await fetch('/api/handleLike', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ postId, userId: session.user.email })
+                });
+                const data = await response.json();
+                setIsLiked(data.isLiked);
+                setLikesCount(data.likesCount);
             } catch (error) {
                 console.error('Error making request:', error);
             }

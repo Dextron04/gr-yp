@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import axios from 'axios';
+// import axios from 'axios';
 // import { toast } from 'react-toastify';
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
@@ -29,14 +29,20 @@ const AddPost = () => {
 
         try {
             // Sumi proof
-            const response = await axios.post('/api/savePost', {
-                postTitle,
-                postContent,
-                postAuthor: session.user.name === 'john' ? 'sumi' : session.user.name,
-                postImage,
-                authorEmail: session.user.email,
-                postId,
-                likes,
+            const response = await fetch('/api/savePost', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    postTitle,
+                    postContent,
+                    postAuthor: session.user.name === 'john' ? 'sumi' : session.user.name,
+                    postImage,
+                    authorEmail: session.user.email,
+                    postId,
+                    likes,
+                }),
             });
 
             if (response.status === 201) {
