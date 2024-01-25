@@ -20,7 +20,7 @@ export default async function handler(req, res) {
                 return;
             }
 
-            const authorId = user._id.toString();
+            const authorId = user.userId;
 
             await collection.insertOne({ postTitle, postContent, postAuthor, postImage, authorId, postId, likes });
             res.status(201).json({ message: 'Post Saved to database' })

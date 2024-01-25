@@ -25,7 +25,16 @@ const Post = ({ title, description, postAuthor, postImage, postId, authorId }) =
                     setIsLiked(true);
                 }
             } else {
-                setIsLiked(false);
+                const response = await fetch('api/handleLike', {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ postId, userId })
+                })
+                if (response.ok) {
+                    setIsLiked(false);
+                }
             }
             checkLikeStatus();
         } catch (error) {

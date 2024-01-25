@@ -33,6 +33,33 @@ export default async function handler(req, res) {
         await client.close();
 
         res.status(200).json({ message: 'Post liked' });
+    } else if (req.method === 'DELETE') {
+        const { postId, userId } = req.body;
+
+        const client = new MongoClient(process.env.MONGODB_URI);
+        await client.connect();
+        const database = client.db('dexweb');
+        const collection = database.collection('posts');
+
+        const post = await collection.findOne({ postId: postId });
+
+        if (!post) {
+            res.status(404).json({ message: 'Post not found' });
+            return;
+        }
+
+        // Remove the user's ID from the likes array if it's there
+        if (post.likes.includes(userId)) {
+            await collection.updateOne(
+                { postId: postId },
+                { $pull: { likes: userId } }
+            );
+        }
+
+        await client.close();
+
+        res.status(200).json({ message: 'Post unliked' });
+
     } else {
         res.status(405).json({ message: 'Method not allowed' });
     }
