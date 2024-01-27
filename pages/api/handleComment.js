@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 export default async function handler(req, res) {
 
     if (req.method === 'POST') {
-        const { postId, userId } = req.body;
+        const { postId, userId, comment } = req.body;
 
         const client = new MongoClient(process.env.MONGODB_URI);
         await client.connect();
@@ -17,16 +17,24 @@ export default async function handler(req, res) {
             return;
         } else {
             // res.status(200).json({ message: "Post Found!" });
-            const isLiked = post.likes.includes(userId);
-            const likesCount = post.likes.length;
-            res.status(200).json({ isLiked, likesCount });
+            // const commentsCount = post.comments.length;
+            res.status(200).json({ message: "Comment Successful" });
         }
 
-        // Add the user's ID to the likes array if it's not already there
-        if (!post.likes.includes(userId)) {
+        /// Find the user in the comments array
+        const userComment = post.comments.find(comment => comment.userId === userId);
+
+        if (userComment) {
+            // If the user is found, push the comment to their comments array
+            await collection.updateOne(
+                { postId: postId, 'comments.userId': userId },
+                { $push: { 'comments.$.userComments': comment } }
+            );
+        } else {
+            // If the user is not found, add a new object to the comments array
             await collection.updateOne(
                 { postId: postId },
-                { $push: { likes: userId } }
+                { $push: { comments: { userId: userId, userComments: [comment] } } }
             );
         }
 

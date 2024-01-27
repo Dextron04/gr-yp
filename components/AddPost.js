@@ -14,6 +14,7 @@ const AddPost = () => {
     const [postImage, setPostImage] = useState('');
     const [imagePreview, setImagePreview] = useState(null);
     const likes = [];
+    const comments = [];
     const { data: session } = useSession();
 
 
@@ -42,6 +43,12 @@ const AddPost = () => {
                     authorEmail: session.user.email,
                     postId,
                     likes,
+                    comments: [
+                        {
+                            userId: session.user.email,
+                            userComments: comments
+                        }
+                    ]
                 }),
             });
 

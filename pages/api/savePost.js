@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-        const { postTitle, postContent, postAuthor, postImage, authorEmail, postId, likes } = req.body;
+        const { postTitle, postContent, postAuthor, postImage, authorEmail, postId, likes, comments } = req.body;
 
         const client = new MongoClient(process.env.MONGODB_URI);
 
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
 
             const authorId = user.userId;
 
-            await collection.insertOne({ postTitle, postContent, postAuthor, postImage, authorId, postId, likes });
+            await collection.insertOne({ postTitle, postContent, postAuthor, postImage, authorId, postId, likes, comments });
             res.status(201).json({ message: 'Post Saved to database' })
         } catch (e) {
             res.status(500).json({ error: e.toString() });
