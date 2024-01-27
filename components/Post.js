@@ -160,7 +160,7 @@ const Post = ({ title, description, postAuthor, postImage, postId, authorId }) =
                         <div>
                             <div className='mt-3 min-h-72 max-h-72 overflow-y-auto'>
                                 {/* Comments will go here */}
-                                {commentsData.map((commentObj, index) => (
+                                {commentsData && Array.isArray(commentsData) && commentsData.map((commentObj, index) => (
                                     <div key={index}>
                                         <h3>@{commentObj.userId}</h3>
                                         {commentObj.userComments.map((comment, index) => (
