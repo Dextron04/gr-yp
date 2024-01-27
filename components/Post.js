@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import PropTypes from 'prop-types';
-import Popup from 'reactjs-popup';
 
 const Post = ({ title, description, postAuthor, postImage, postId, authorId }) => {
     const [imagePreview, setImagePreview] = useState(null);
