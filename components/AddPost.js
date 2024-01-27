@@ -43,12 +43,7 @@ const AddPost = () => {
                     authorEmail: session.user.email,
                     postId,
                     likes,
-                    comments: [
-                        {
-                            userId: session.user.email,
-                            userComments: comments
-                        }
-                    ]
+                    comments: []
                 }),
             });
 
