@@ -20,7 +20,8 @@ export default async function handler(req, res) {
             // const isLiked = post.likes.includes(userId);
             // const likesCount = post.likes.length;
 
-            res.status(200).json({ message: "Comment Fetch Successful", comments: post.comments });
+            const commentsCount = post.comments.length;
+            res.status(200).json({ message: "Comment Fetch Successful", comments: post.comments, commentsCount: commentsCount });
         }
 
         await client.close();
