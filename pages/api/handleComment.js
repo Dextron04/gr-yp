@@ -22,15 +22,13 @@ export default async function handler(req, res) {
         }
 
         /// Find the user in the comments array
-        const userComment = post.comments.find(comment => comment.userId === userId);
+        // const userComment = post.comments.find(comment => comment.userId === userId);
 
 
-        if (userComment) {
-            await collection.updateOne(
-                { postId: postId },
-                { $push: { comments: { userId: userId, userComments: [comment] } } }
-            );
-        }
+        await collection.updateOne(
+            { postId: postId },
+            { $push: { comments: { userId: userId, userComments: [comment] } } }
+        );
         // if (userComment) {
         //     // If the user is found, push the comment to their comments array
         //     await collection.updateOne(
