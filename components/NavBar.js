@@ -14,6 +14,12 @@ const NavBar = () => {
 
     const menuAction = {
         'Log Out': signOut,
+        'Profile': () => {
+            window.location.href = '/profilePage';
+        },
+        'Home': () => {
+            window.location.href = '/'
+        }
     }
 
     return (
@@ -29,7 +35,7 @@ const NavBar = () => {
                                 <div className="ml-10 flex items-baseline space-x-4">
                                     {menuItems.map((item, index) => (
                                         <a
-                                            key={index}
+                                            key={item}
                                             href="#"
                                             className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                                             onClick={menuAction[item]}
