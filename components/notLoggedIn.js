@@ -4,13 +4,13 @@ import Head from 'next/head.js';
 import { useRouter } from 'next/router';
 
 
-const router = new useRouter();
-
-const handleLoginClick = () => {
-    router.push('/');
-}
-
 const NotLoggedIn = () => {
+    const router = new useRouter();
+    
+    const handleLoginClick = () => {
+        router.push("/");
+    };
+    
     return (
         <div className="flex flex-col items-center justify-center h-screen">
             <Head>
