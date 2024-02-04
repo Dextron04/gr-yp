@@ -44,11 +44,11 @@ const ProfilePage = () => {
     });
 
 
-    // if (isLoading) {
-    //     return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-    //         <div><AtomicSpinner atomSize={300} electronSize={2.5} /></div>
-    //     </div>)
-    // }
+    if (isLoading) {
+        return (<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+            <div><AtomicSpinner atomSize={300} electronSize={2.5} /></div>
+        </div>)
+    }
 
     const convertToBase64 = (file) => {
         return new Promise((resolve, reject) => {
