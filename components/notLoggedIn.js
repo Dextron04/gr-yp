@@ -1,7 +1,10 @@
 import React from 'react';
 import AtomicSpinner from 'atomic-spinner'
 import Head from 'next/head.js';
+import { useRouter } from 'next/router';
 
+
+const router = new useRouter();
 
 const handleLoginClick = () => {
     router.push('/');
