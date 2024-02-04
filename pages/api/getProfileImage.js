@@ -17,7 +17,6 @@ export default async function handler(req, res) {
                 res.status(404).json({ message: 'User not found' });
                 return;
             }
-
             res.status(200).json({ message: 'Profile Photo Saved to database', profilePhoto: user.imageProfile })
         } catch (e) {
             res.status(500).json({ error: e.toString() });
