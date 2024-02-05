@@ -12,7 +12,6 @@ export default function Index() {
     const router = new useRouter()
 
     if (session) {
-        console.log(session.user.email);
         toast.success("Sign In Successful")
         router.push('/home')
     } else {

@@ -95,6 +95,6 @@ export default NextAuth({
             }
             return true;
         }
-    }
+    },
     // Other NextAuth configuration here
 })

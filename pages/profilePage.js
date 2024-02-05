@@ -123,7 +123,7 @@ const ProfilePage = () => {
                 </div>
                 <NavBar />
                 <div className="container py-8 mt-10 max-w-full">
-                    <h1 className="text-4xl font-bold mb-4 flex justify-center">Welcome {session?.user?.name}!</h1>
+                    <h1 className="text-2xl font-bold mb-4 flex justify-center">Welcome {session?.user?.name}!</h1>
                     {/* Add your profile content here */}
                 </div>
                 <div>
