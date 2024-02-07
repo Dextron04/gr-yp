@@ -89,7 +89,7 @@ const Post = ({ title, description, postAuthor, postImage, postId, authorId, aut
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ postId, userId: session.user.email, comment })
+            body: JSON.stringify({ postId, userEmail: session.user.email, comment })
         });
 
         if (response.ok) {

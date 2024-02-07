@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
-import bcrypt, { hash } from 'bcrypt';
-import { error, log } from 'console';
+import bcrypt from 'bcrypt';
+import { error } from 'console';
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {

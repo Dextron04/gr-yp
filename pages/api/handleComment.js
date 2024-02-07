@@ -3,16 +3,19 @@ import { MongoClient } from "mongodb";
 export default async function handler(req, res) {
 
     if (req.method === 'POST') {
-        const { postId, userId, comment } = req.body;
+        const { postId, userEmail, comment } = req.body;
 
         const client = new MongoClient(process.env.MONGODB_URI);
         await client.connect();
         const database = client.db('dexweb');
         const collection = database.collection('posts');
+        const UserCollection = database.collection('users');
 
         const post = await collection.findOne({ postId: postId });
+        const user = await UserCollection.findOne({ email: userEmail });
+        const username = user.username;
 
-        if (!post) {
+        if (!post && !user) {
             res.status(404).json({ message: 'Post not found' });
             return;
         } else {
@@ -27,7 +30,7 @@ export default async function handler(req, res) {
 
         await collection.updateOne(
             { postId: postId },
-            { $push: { comments: { userId: userId, userComments: [comment] } } }
+            { $push: { comments: { userId: username, userComments: [comment] } } }
         );
         // if (userComment) {
         //     // If the user is found, push the comment to their comments array
