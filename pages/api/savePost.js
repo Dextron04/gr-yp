@@ -21,8 +21,9 @@ export default async function handler(req, res) {
             }
 
             const authorId = user.userId;
+            const authorUsername = user.username;
 
-            await collection.insertOne({ postTitle, postContent, postAuthor, postImage, authorId, postId, likes, comments });
+            await collection.insertOne({ postTitle, postContent, postAuthor, postImage, authorId, postId, likes, comments, authorUsername });
             res.status(201).json({ message: 'Post Saved to database' })
         } catch (e) {
             res.status(500).json({ error: e.toString() });

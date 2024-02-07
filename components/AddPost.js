@@ -14,7 +14,6 @@ const AddPost = () => {
     const [postImage, setPostImage] = useState('');
     const [imagePreview, setImagePreview] = useState(null);
     const likes = [];
-    const comments = [];
     const { data: session } = useSession();
 
 

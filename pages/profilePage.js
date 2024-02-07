@@ -5,16 +5,44 @@ import AtomicSpinner from 'atomic-spinner';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import NotLoggedIn from '../components/notLoggedIn';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const ProfilePage = () => {
     const { data: session } = useSession();
     const [imageProfile, setImageProfile] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const router = useRouter();
+    const [username, setUsername] = useState('');
 
+
+    // Used to fetch username from the database
+    useEffect(() => {
+        if (session) {
+            const fetchUsername = async () => {
+                try {
+                    const response = await axios.post('/api/getUsername', {
+                        userEmail: session.user.email
+                    });
+
+                    if (response.status === 200) {
+                        const username = response.data;
+                        setUsername(username)
+                    } else {
+                        console.log('Something went wrong');
+                    }
+                } catch (e) {
+                    console.error(`Error! ${e}`);
+                } finally {
+                    setIsLoading(false);
+                }
+            }
+            fetchUsername();
+        }
+    });
 
     useEffect(() => {
         if (session) {
+            // console.log(session);
             const fetchProfileImage = async () => {
                 try {
                     const response = await fetch('/api/getProfileImage', {
@@ -124,7 +152,7 @@ const ProfilePage = () => {
                 <NavBar />
                 <div className="container py-8 mt-10 max-w-full">
                     <h1 className="text-2xl font-bold mb-4 flex justify-center">Welcome {session?.user?.name}!</h1>
-                    {/* Add your profile content here */}
+                    <h2 className="text-xl font-bold mb-4 flex justify-center">@{username}</h2>
                 </div>
                 <div>
                     {imageProfile ? <Image

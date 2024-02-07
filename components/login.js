@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 const Login = () => {
 
@@ -12,7 +13,7 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [name, setName] = useState('');
 
     const router = useRouter();
 
@@ -36,21 +37,24 @@ const Login = () => {
     const handleSignUp = async (event) => {
         event.preventDefault();
 
-        if (!username || !password || !email) {
+        if (!username || !password || !email || !name) {
             toast("Please fill in all the details");
             return;
         }
 
-        if (username.length < 8 || password.length < 8) {
+        if (username.length < 8 || password.length < 8 || name.length < 2) {
             toast("Username and Password should have at least 8 characters");
             return;
         }
 
         try {
+            const userId = uuidv4();
             const response = await axios.post('/api/saveData', {
                 username,
                 email,
-                password
+                password,
+                name,
+                userId
             });
 
             if (response.status === 201) {
@@ -58,6 +62,7 @@ const Login = () => {
                 setEmail('');
                 setPassword('');
                 setUsername('');
+                setName('');
                 toast("Sign Up was successful!");
             } else {
                 console.log('Something went wrong');
@@ -137,6 +142,10 @@ const Login = () => {
                     <p className={styles["title"]}>Sign Up</p>
                     <form className={styles["form"]}>
                         <div className={styles["input-group"]}>
+                            <div className={styles["input-group"]}>
+                                <label htmlFor="username">Full Name</label>
+                                <input value={name} type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} />
+                            </div>
                             <label htmlFor="username">Username</label>
                             <input required type="text" name="username" id="username" placeholder="" value={username} onChange={(e) => setUsername(e.target.value)} />
                         </div>

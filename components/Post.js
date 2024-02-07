@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import PropTypes from 'prop-types';
 
-const Post = ({ title, description, postAuthor, postImage, postId, authorId }) => {
+const Post = ({ title, description, postAuthor, postImage, postId, authorId, authorUsername }) => {
     const [imagePreview, setImagePreview] = useState(null);
     const [isLiked, setIsLiked] = useState(false);
     const [likesCount, setLikesCount] = useState(0);
@@ -123,7 +123,7 @@ const Post = ({ title, description, postAuthor, postImage, postId, authorId }) =
         <div className='flex justify-center w-full mt-6 px-4 sm:px-0'>
             <div className="bg-gray-900 rounded-lg shadow-md p-4 max-w-xl w-full">
                 <p style={{ fontSize: '12px' }}>
-                    @{postAuthor}
+                    @{authorUsername}
                 </p>
                 <h2 className="text-xl font-bold">
                     <textarea
@@ -194,6 +194,7 @@ Post.propTypes = {
     postImage: PropTypes.string.isRequired,
     postId: PropTypes.string.isRequired,
     authorId: PropTypes.string.isRequired,
+    authorUsername: PropTypes.string.isRequired,
 };
 
 export default Post;

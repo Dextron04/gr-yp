@@ -7,6 +7,7 @@ import { MongoClient } from 'mongodb';
 import bcrypt from 'bcrypt';
 import { error } from 'console';
 import { v4 as uuidv4 } from 'uuid';
+import { generateFromEmail } from "unique-username-generator";
 
 export default NextAuth({
     providers: [
@@ -68,22 +69,18 @@ export default NextAuth({
             const client = new MongoClient(process.env.MONGODB_URI);
             try {
                 await client.connect();
-                // let collection;
                 const db = client.db('dexweb');
-
                 const collection = db.collection('users');
-
                 const existingUser = await collection.findOne({ user: user.user });
 
-                if (existingUser) {
-                    console.log("User Already Exists")
-                } else {
+                if (user.account.provider !== 'credentials' && !existingUser) {
                     const user_id = uuidv4();
+                    const username = generateFromEmail(user.user.email, 3);
                     const newUser = {
                         userId: user_id,
-                        user: user.user,
-                        account: user.account,
-                        profile: user.profile,
+                        username: username,
+                        email: user.user.email,
+                        name: user.user.name,
                     }
 
                     await collection.insertOne(newUser);
