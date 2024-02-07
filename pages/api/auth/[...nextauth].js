@@ -71,7 +71,9 @@ export default NextAuth({
                 await client.connect();
                 const db = client.db('dexweb');
                 const collection = db.collection('users');
-                const existingUser = await collection.findOne({ user: user.user });
+                const existingUser = await collection.findOne({ $or: [{ user: user.user }, { email: user.user.email }] });
+
+                // { $or: [{ user: user.user }, { email: user.user.email }] }
 
                 if (user.account.provider !== 'credentials' && !existingUser) {
                     const user_id = uuidv4();
