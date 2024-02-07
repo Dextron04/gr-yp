@@ -33,7 +33,7 @@ const ProfilePage = () => {
                     if (response.status === 200) {
                         const data = await response.json();
                         const username = data;
-                        console.log(response);
+                        console.log(data);
                         setUsername(username);
                     } else {
                         console.log('Something went wrong');

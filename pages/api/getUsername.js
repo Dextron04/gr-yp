@@ -12,7 +12,13 @@ export default async function handler(req, res) {
             const collection = database.collection('users');
 
             const user = await collection.findOne({ $or: [{ email: userEmail }, { "user.email": userEmail }] });
-            user ? res.status(200).json(user.username) : res.status(404).json({ message: 'User not found' });
+            if (user) {
+                console.log("I found the user!!");
+                console.log(user);
+                res.status(200).json(user.username);
+            } else {
+                res.status(404).json({ message: 'User not found' });
+            }
 
         } catch (e) {
             res.status(500).json({ error: e.toString() });
