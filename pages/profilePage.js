@@ -26,7 +26,8 @@ const ProfilePage = () => {
 
                     if (response.status === 200) {
                         const username = response.data;
-                        setUsername(username)
+                        console.log(response);
+                        setUsername(username);
                     } else {
                         console.log('Something went wrong');
                     }
@@ -43,6 +44,7 @@ const ProfilePage = () => {
     useEffect(() => {
         if (session) {
             // console.log(session);
+            console.log(session.user.email);
             const fetchProfileImage = async () => {
                 try {
                     const response = await fetch('/api/getProfileImage', {
