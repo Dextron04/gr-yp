@@ -20,12 +20,19 @@ const ProfilePage = () => {
         if (session) {
             const fetchUsername = async () => {
                 try {
-                    const response = await axios.post('/api/getUsername', {
-                        userEmail: session.user.email
+                    const response = await fetch('/api/getUsername', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            userEmail: session.user.email
+                        })
                     });
 
                     if (response.status === 200) {
-                        const username = response.data;
+                        const data = await response.json();
+                        const username = data;
                         console.log(response);
                         setUsername(username);
                     } else {
