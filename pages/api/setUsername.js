@@ -16,7 +16,7 @@ export default async function handler(req, res) {
             const user = await collection.findOne({ username: username });
             const userPost = await postsCollection.findOne({ authorUsername: username });
             if (userPost) {
-                await postsCollection.updateOne(
+                await postsCollection.updateMany(
                     { authorUsername: username },
                     { $set: { "authorUsername": newUsername } },
                 );
