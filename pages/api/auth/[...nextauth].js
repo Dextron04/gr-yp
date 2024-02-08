@@ -86,6 +86,8 @@ export default NextAuth({
                     }
 
                     await collection.insertOne(newUser);
+                } else {
+                    console.log("User already exists!");
                 }
             } catch (e) {
                 error(e);

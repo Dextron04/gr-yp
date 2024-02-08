@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import NavBar from '../components/NavBar.js';
@@ -22,7 +21,7 @@ const Home = () => {
 
         fetchPosts();
 
-        const intervalId = setInterval(fetchPosts, 300000);
+        const intervalId = setInterval(fetchPosts, 30000);
 
         return () => clearInterval(intervalId);
     }, []);
@@ -44,7 +43,7 @@ const Home = () => {
                 </Head>
                 <NavBar />
                 <AddPost />
-                {postsArray.map((post) => {
+                {postsArray && postsArray.map((post) => {
                     return (
                         <div key={post.id}>
                             <Post key={post.postTitle} authorUsername={post.authorUsername} title={post.postTitle} description={post.postContent}

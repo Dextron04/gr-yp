@@ -32,19 +32,6 @@ export default async function handler(req, res) {
             { postId: postId },
             { $push: { comments: { userId: username, userComments: [comment] } } }
         );
-        // if (userComment) {
-        //     // If the user is found, push the comment to their comments array
-        //     await collection.updateOne(
-        //         { postId: postId, 'comments.userId': userId },
-        //         { $push: { 'comments.$.userComments': comment } }
-        //     );
-        // } else {
-        //     // If the user is not found, add a new object to the comments array
-        //     await collection.updateOne(
-        //         { postId: postId },
-        //         { $push: { comments: { userId: userId, userComments: [comment] } } }
-        //     );
-        // }
 
         await client.close();
 

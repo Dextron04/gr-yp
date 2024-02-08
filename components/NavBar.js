@@ -18,7 +18,7 @@ const NavBar = () => {
             window.location.href = '/profilePage';
         },
         'Home': () => {
-            window.location.href = '/'
+            window.location.href = '/home'
         }
     }
 
