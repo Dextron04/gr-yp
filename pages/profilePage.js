@@ -3,8 +3,10 @@ import NavBar from '../components/NavBar';
 import { useSession } from 'next-auth/react';
 import AtomicSpinner from 'atomic-spinner';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import NotLoggedIn from '../components/notLoggedIn';
 import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const ProfilePage = () => {
     const { data: session } = useSession();

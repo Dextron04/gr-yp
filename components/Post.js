@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 
 const Post = ({ title, description, postAuthor, postImage, postId, authorId, authorUsername }) => {
     const [imagePreview, setImagePreview] = useState(null);
@@ -122,9 +123,11 @@ const Post = ({ title, description, postAuthor, postImage, postId, authorId, aut
     return (
         <div className='flex justify-center w-full mt-6 px-4 sm:px-0'>
             <div className="bg-gray-900 rounded-lg shadow-md p-4 max-w-xl w-full">
-                <p style={{ fontSize: '12px' }}>
-                    @{authorUsername}
-                </p>
+                <Link href={`/${authorUsername}`}>
+                    <p style={{ fontSize: '12px' }}>
+                        @{authorUsername}
+                    </p>
+                </Link>
                 <h2 className="text-xl font-bold">
                     <textarea
                         className=" bg-gray-900 w-full h-8 mt-2 border-transparent rounded mb-2 resize-none overflow-hidden focus:outline-none"

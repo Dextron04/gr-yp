@@ -21,16 +21,17 @@ export default async function handler(req, res) {
                     { $set: { "authorUsername": newUsername } },
                 );
             };
+
+            // Will Check if the user exists.
             if (user) {
-                console.log(user.username);
+                // Will check if the username has already been taken.
                 if (newUsername !== username) {
                     const existingUser = await collection.findOne({ username: newUsername });
                     if (existingUser) {
-                        console.log("Bhai koi aur leke betho hai batao toh thok du saale ko");
                         res.status(400).json({ message: 'Username already taken' });
                         return;
                     } else {
-                        console.log("Ho gao bhai ko update naam tharo");
+                        // If everything is correct then the username will be updated
                         await collection.updateOne(
                             { username: username },
                             { $set: { "username": newUsername } }
@@ -39,7 +40,6 @@ export default async function handler(req, res) {
                     }
                 }
             } else {
-                console.log("nahi mila bro");
                 res.status(404).json({ message: 'User not found' });
             }
 
