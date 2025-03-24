@@ -1,8 +1,3 @@
-<div align="center">
-  <img src="/public/GRYP.png" alt="Alt Text">
-</div>
-
-<h1 align="center">GR-YP - Social Media Platform</h1>
 
 ![Generated Image March 24, 2025 - 1_55AM png](https://github.com/user-attachments/assets/d03fe754-3b85-4ad7-9f9e-a251a7c944f3)
 
